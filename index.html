@@ -3,57 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nina & Dirk – Silberhochzeitszeitung</title>
+<title>Deckblatt – Silberhochzeit</title>
 <style>
-:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-body{margin:0;background:#f4f1ec;color:#342b28}
-main{max-width:760px;margin:auto;padding:18px}
-h1{font-size:1.25rem;margin:0 0 8px}
-p{margin:0 0 14px;line-height:1.45}
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
-label,button{border:0;border-radius:10px;padding:11px 15px;background:#8f1221;color:white;font-weight:650;cursor:pointer}
+body{margin:0;background:#eee;font-family:Arial,sans-serif;text-align:center}
+main{max-width:720px;margin:auto;padding:15px}
+.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+label,button{background:#a20f25;color:white;border:0;border-radius:9px;padding:11px 16px;font-weight:bold;cursor:pointer}
 input{display:none}
-.stage{position:relative;width:100%;aspect-ratio:2/3;background:#fff;box-shadow:0 5px 24px #0002;overflow:hidden}
-.stage img{position:absolute;display:block}
-#photo{left:19.9%;top:34.2%;width:60.4%;height:38.1%;object-fit:cover;object-position:center}
-#overlay{inset:0;width:100%;height:100%;pointer-events:none}
-.small{font-size:.9rem;color:#675d58}
+.stage{position:relative;width:100%;aspect-ratio:2/3;background:white;overflow:hidden;box-shadow:0 3px 18px #0003}
+#photo{position:absolute;left:22.5%;top:36.4%;width:59%;height:34.5%;object-fit:cover;object-position:center;display:none}
+#cover{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+p{font-size:14px;color:#555}
 </style>
 </head>
-<body>
-<main>
-<h1>Silberhochzeitszeitung – Foto einsetzen</h1>
-<p>Das Design bleibt unverändert. Dein Foto wird nur hinter die transparente Herzöffnung gelegt und nicht retuschiert.</p>
+<body><main>
+<h2>Silberhochzeit – Deckblatt</h2>
 <div class="controls">
-<label>Eigenes Foto wählen<input id="picker" type="file" accept="image/*"></label>
-<button id="download">Als PNG speichern</button>
+<label>Foto auswählen<input id="pick" type="file" accept="image/*"></label>
+<button id="save">Fertiges Deckblatt speichern</button>
 </div>
-<div class="stage" id="stage">
-<img id="photo" src="foto.jpg" alt="Foto">
-<img id="overlay" src="overlay.png" alt="">
+<div class="stage">
+<img id="photo" alt="">
+<img id="cover" src="deckblatt.png" alt="Deckblatt">
 </div>
-<p class="small">Hinweis: Das Foto wird nur proportional skaliert und mittig zugeschnitten, damit es das Herz ausfüllt.</p>
-</main>
+<p>Das ausgewählte Foto wird nicht retuschiert. Es wird nur proportional hinter das Herz gelegt.</p>
 <script>
-const picker=document.getElementById('picker');
-const photo=document.getElementById('photo');
-picker.addEventListener('change',()=>{
- const f=picker.files[0]; if(!f)return;
- const r=new FileReader(); r.onload=e=>photo.src=e.target.result; r.readAsDataURL(f);
-});
-document.getElementById('download').addEventListener('click',async()=>{
- const c=document.createElement('canvas'); c.width=1024;c.height=1536;
- const x=c.getContext('2d');
- const p=new Image(), o=new Image();
- p.src=photo.src; o.src='overlay.png';
- await Promise.all([p.decode(),o.decode()]);
- const box={x:204,y:525,w:619,h:585};
- const s=Math.max(box.w/p.naturalWidth,box.h/p.naturalHeight);
- const w=p.naturalWidth*s,h=p.naturalHeight*s;
- x.drawImage(p,box.x+(box.w-w)/2,box.y+(box.h-h)/2,w,h);
- x.drawImage(o,0,0,1024,1536);
- const a=document.createElement('a');a.download='Silberhochzeit-Nina-Dirk.png';a.href=c.toDataURL('image/png');a.click();
-});
+const pick=document.getElementById('pick'), photo=document.getElementById('photo');
+pick.onchange=()=>{const f=pick.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{photo.src=r.result;photo.style.display='block'};r.readAsDataURL(f)};
+document.getElementById('save').onclick=async()=>{
+ if(!photo.src){alert('Bitte zuerst ein Foto auswählen.');return;}
+ const c=document.createElement('canvas');c.width=1024;c.height=1536;
+ const x=c.getContext('2d'), cover=new Image();cover.src='deckblatt.png';
+ await Promise.all([photo.decode(),cover.decode()]);
+ const b={x:230,y:560,w:596,h:525};
+ const s=Math.max(b.w/photo.naturalWidth,b.h/photo.naturalHeight);
+ const w=photo.naturalWidth*s,h=photo.naturalHeight*s;
+ x.drawImage(photo,b.x+(b.w-w)/2,b.y+(b.h-h)/2,w,h);
+ x.drawImage(cover,0,0);
+ const a=document.createElement('a');a.download='Silberhochzeit-Deckblatt.png';a.href=c.toDataURL('image/png');a.click();
+};
 </script>
-</body>
-</html>
+</main></body></html>

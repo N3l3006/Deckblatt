@@ -1,14 +1,10 @@
-# Silberhochzeit – Nina & Dirk
+# Deckblatt GitHub Pages
 
-Diese kleine GitHub-Pages-Seite lässt das Cover-Design unverändert.
-Das ausgewählte Originalfoto wird ausschließlich hinter die Herzöffnung gelegt.
+Diese Version verwendet das neue Deckblatt mit leerem Herz.
 
-## GitHub Pages veröffentlichen
-1. Neues öffentliches Repository erstellen, z. B. `silberhochzeit`.
-2. `index.html`, `overlay.png` und `foto.jpg` aus diesem Paket hochladen.
-3. Im Repository **Settings → Pages** öffnen.
-4. Unter **Build and deployment**: **Deploy from a branch** wählen.
-5. Branch **main**, Ordner **/(root)** auswählen und speichern.
-6. GitHub zeigt anschließend die öffentliche Pages-Adresse an.
+Für GitHub:
+1. `index.html` und `deckblatt.png` in das Repository `Deckblatt` hochladen.
+2. Vorhandene gleichnamige Dateien ersetzen.
+3. GitHub Pages auf `main` / `(root)` veröffentlichen.
 
-Das Foto wird im Browser verarbeitet; beim Auswählen eines anderen Fotos wird es nicht an einen fremden Bilddienst geschickt.
+Danach kann auf der Webseite ein eigenes Foto ausgewählt werden.
