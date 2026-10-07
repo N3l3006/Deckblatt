@@ -1,0 +1,8 @@
+Diese Version enthält KEIN Foto.
+Auf GitHub bitte zuerst ALLE alten Dateien im Repository löschen.
+Danach NUR diese beiden Dateien hochladen:
+- index.html
+- deckblatt-leer-v2.png
+
+Die alte Datei foto.jpg darf NICHT mehr im Repository liegen.
+Auch alte Dateien wie overlay.png oder deckblatt.png bitte löschen.
